@@ -13,8 +13,8 @@ import { newCaptcha, DEMO_PASSWORD, MAX_LOGIN_ATTEMPTS, LOCKOUT_SECONDS } from '
 import type { Role } from '../../types'
 
 const ROLES: { value: Role; label: string; demoEmail: string }[] = [
-  { value: 'trainee', label: 'Trainee', demoEmail: 'ritu.trainee@demo.gov.in' },
-  { value: 'trainer', label: 'Trainer', demoEmail: 'anjali.trainer@demo.gov.in' },
+  { value: 'trainee', label: 'Trainee', demoEmail: 'anamika.trainee@demo.gov.in' },
+  { value: 'trainer', label: 'Trainer', demoEmail: 'palve.trainer@demo.gov.in' },
   { value: 'admin', label: 'Administrator', demoEmail: 'admin@demo.gov.in' },
 ]
 
