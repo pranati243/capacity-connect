@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom'
-import { Contrast, Menu, X, LogOut, Home as HomeIcon } from 'lucide-react'
+import { Moon, Sun, Menu, X, LogOut, Home as HomeIcon } from 'lucide-react'
 import { Logo } from './Illustrations'
 import { Avatar } from '../ui'
 import { useAppData } from '../../context/AppDataContext'
@@ -9,7 +9,7 @@ import { PUBLIC_NAV, PORTAL_NAV, ROLE_LABEL, type NavItem } from './nav'
 import type { Role } from '../../types'
 
 function UtilityBar() {
-  const { t, fontStep, setFontStep, toggleContrast, highContrast, lang, setLang } = usePrefs()
+  const { t, fontStep, setFontStep, toggleDarkMode, darkMode, lang, setLang } = usePrefs()
   const sizeBtn = 'px-1.5 py-0.5 hover:bg-white/15 font-semibold'
   return (
     <div className="bg-navy-dark text-white text-[0.72rem]">
@@ -28,13 +28,13 @@ function UtilityBar() {
             <button onClick={() => setFontStep(fontStep + 1)} className={sizeBtn} aria-label="Increase text size">A+</button>
           </div>
           <button
-            onClick={toggleContrast}
-            aria-pressed={highContrast}
-            aria-label={t('highContrast')}
-            title={t('highContrast')}
+            onClick={toggleDarkMode}
+            aria-pressed={darkMode}
+            aria-label={t('darkMode')}
+            title={t('darkMode')}
             className="p-1 hover:bg-white/15"
           >
-            <Contrast size={14} />
+            {darkMode ? <Sun size={14} /> : <Moon size={14} />}
           </button>
           <span className="opacity-40">|</span>
           <button onClick={() => setLang(lang === 'en' ? 'hi' : 'en')} className="px-1.5 py-0.5 hover:bg-white/15 font-semibold" lang={lang === 'en' ? 'hi' : 'en'}>

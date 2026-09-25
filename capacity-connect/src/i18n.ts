@@ -7,7 +7,7 @@ const dict = {
   govt: { en: 'Government of India', hi: 'भारत सरकार' },
   skipToMain: { en: 'Skip to main content', hi: 'मुख्य सामग्री पर जाएं' },
   screenReader: { en: 'Screen Reader Access', hi: 'स्क्रीन रीडर एक्सेस' },
-  highContrast: { en: 'High contrast', hi: 'उच्च कंट्रास्ट' },
+  darkMode: { en: 'Dark mode', hi: 'डार्क मोड' },
   textSize: { en: 'Text size', hi: 'पाठ आकार' },
   sitemap: { en: 'Sitemap', hi: 'साइटमैप' },
   login: { en: 'Login', hi: 'लॉग इन' },

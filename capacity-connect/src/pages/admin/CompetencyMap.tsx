@@ -64,7 +64,7 @@ export function CompetencyMap() {
                           onClick={() => setEditing({ trainerId: t.id, subject: s })}
                           aria-label={`${t.name}, ${s}: ${e ? `${e.level} ${e.score}` : 'not mapped'}. Edit`}
                           className="w-full h-14 rounded-md text-xs font-medium flex flex-col items-center justify-center border-2 border-transparent hover:border-navy transition-colors"
-                          style={e ? { background: LEVEL_STYLE[e.level].bg, color: LEVEL_STYLE[e.level].fg } : { background: '#f5f5f3', color: '#898781' }}
+                          style={e ? { background: LEVEL_STYLE[e.level].bg, color: LEVEL_STYLE[e.level].fg } : { background: 'var(--surface-muted)', color: 'var(--text-faint)' }}
                         >
                           {e ? (
                             <>
@@ -89,7 +89,7 @@ export function CompetencyMap() {
               <span className="w-4 h-4 rounded" style={{ background: LEVEL_STYLE[l].bg }} /> {l}
             </span>
           ))}
-          <span className="flex items-center gap-1.5"><span className="w-4 h-4 rounded bg-[#f5f5f3] border border-rule" /> Not mapped</span>
+          <span className="flex items-center gap-1.5"><span className="w-4 h-4 rounded border border-rule" style={{ background: 'var(--surface-muted)' }} /> Not mapped</span>
         </div>
       </Card>
 

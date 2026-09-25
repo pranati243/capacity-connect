@@ -42,9 +42,10 @@ interface SceneProps {
   title?: string
 }
 
-function svgProps({ className, style, title }: SceneProps) {
+function svgProps({ tone, className, style, title }: SceneProps) {
   return {
     className: `illustration ${className ?? ''}`,
+    'data-tone': tone === 'mono' ? 'mono' : 'color',
     style,
     role: title ? 'img' : undefined,
     'aria-hidden': title ? undefined : true,

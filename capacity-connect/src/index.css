@@ -25,6 +25,11 @@
 :root {
   --bg: #f4f5f2;
   --text: #1a2027;
+  --chart-axis: #52514e;
+  --chart-grid: #e7e6e2;
+  --chart-legend: #52514e;
+  --surface-muted: #f5f5f3;
+  --text-faint: #898781;
 }
 
 * {
@@ -105,27 +110,82 @@ h3,
   }
 }
 
-/* GIGW-style high contrast: black background, white text, yellow interactive elements */
-html.hc body,
-html.hc body * {
-  background-color: #000 !important;
-  background-image: none !important;
-  color: #fff !important;
-  border-color: #fff !important;
-  box-shadow: none !important;
+/* Dark mode: swap the light-theme surfaces/text/borders for a dark navy palette.
+   Targets the specific utility classes the app uses (see the grep audit in the
+   commit that added this) rather than a blanket invert, so brand colors, status
+   tones and illustrations stay intentional instead of inverted-looking. */
+html.dark {
+  --bg: #0d1720;
+  --text: #dde4ea;
+  --chart-axis: #7e8fa0;
+  --chart-grid: #2c3d4c;
+  --chart-legend: #aebcc8;
+  --surface-muted: #1e2a35;
+  --text-faint: #5b6c7a;
+  color-scheme: dark;
 }
-html.hc body a,
-html.hc body button,
-html.hc body a *,
-html.hc body button * {
-  color: #ffeb3b !important;
+html.dark body {
+  background: var(--bg);
 }
-html.hc body svg:not(.illustration)[stroke]:not([stroke='none']),
-html.hc body svg:not(.illustration) [stroke]:not([stroke='none']) {
-  stroke: #fff !important;
-}
-html.hc svg.illustration {
-  opacity: 0.15 !important;
+
+/* Surfaces */
+html.dark .bg-white { background-color: #16232f; }
+html.dark .bg-paper { background-color: #0d1720; }
+html.dark .bg-slate-50 { background-color: #1a2833; }
+html.dark .bg-slate-100 { background-color: #223140; }
+html.dark .bg-slate-200 { background-color: #2b3c4c; }
+html.dark .bg-navy-50 { background-color: #16283a; }
+html.dark .bg-\[\#f1efe6\] { background-color: #1e2a35; }
+
+/* Borders & dividers */
+html.dark .border-rule,
+html.dark .divide-rule,
+html.dark .border-slate-300,
+html.dark .border-slate-400 { border-color: #2c3d4c; }
+html.dark .divide-rule > :not([hidden]) ~ :not([hidden]) { border-color: #2c3d4c; }
+html.dark .border-white { border-color: #16232f; }
+
+/* Body text */
+html.dark .text-slate-900,
+html.dark .text-slate-800 { color: #eef2f5; }
+html.dark .text-slate-700,
+html.dark .text-slate-600 { color: #aebcc8; }
+html.dark .text-slate-500,
+html.dark .text-slate-400,
+html.dark .text-slate-300,
+html.dark .text-slate-200 { color: #7e8fa0; }
+
+/* Links, headings and button text in the brand navy read too dark on a dark
+   surface, so lighten navy text/borders specifically (backgrounds using navy,
+   e.g. the header bar, are untouched and stay legible as-is). */
+html.dark .text-navy { color: #6fa8e0; }
+html.dark .border-navy { border-color: #3b6ea5; }
+html.dark .hover\:bg-navy-50:hover { background-color: #1c2f42; }
+
+/* Status badges (pastel-on-white in light mode -> tinted-on-dark) */
+html.dark .bg-green-50 { background-color: rgba(19, 136, 8, 0.16); }
+html.dark .bg-green-50\/50 { background-color: rgba(19, 136, 8, 0.12); }
+html.dark .border-green-200, html.dark .border-green-300 { border-color: rgba(60, 200, 60, 0.35); }
+html.dark .text-green-800 { color: #7bd97a; }
+html.dark .bg-amber-50 { background-color: rgba(245, 130, 32, 0.16); }
+html.dark .border-amber-200, html.dark .border-amber-300 { border-color: rgba(245, 130, 32, 0.4); }
+html.dark .text-amber-600, html.dark .text-amber-700, html.dark .text-amber-800 { color: #f5b168; }
+html.dark .bg-red-50 { background-color: rgba(220, 38, 38, 0.16); }
+html.dark .border-red-200, html.dark .border-red-300 { border-color: rgba(220, 38, 38, 0.4); }
+html.dark .text-red-500, html.dark .text-red-600, html.dark .text-red-700, html.dark .text-red-800 { color: #ff8f8f; }
+html.dark .border-blue-200 { border-color: rgba(111, 168, 224, 0.35); }
+
+/* Illustrations: full-color scenes get a touch dimmer, mono watermark stays faint */
+html.dark svg.illustration[data-tone='color'] { filter: brightness(0.85) saturate(0.9); }
+
+/* Charts (recharts): axis/grid/legend colors read CSS vars (see chartColors.tsx)
+   directly as their stroke/fill/color, so they track the theme automatically.
+   The tooltip card still needs a direct override: Recharts renders its default
+   tooltip with a fixed inline background/border/color. */
+html.dark .recharts-default-tooltip {
+  background-color: #16232f !important;
+  border-color: #2c3d4c !important;
+  color: #dde4ea !important;
 }
 
 @media print {
