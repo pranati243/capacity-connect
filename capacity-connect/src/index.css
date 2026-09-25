@@ -1,0 +1,138 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Noto Sans', 'Noto Sans Devanagari', 'Segoe UI', system-ui, sans-serif;
+  --font-serif: 'Noto Serif', 'Noto Sans Devanagari', Georgia, serif;
+
+  /* Gov portals use near-square panels; redefining the scale squares every rounded-* utility at once. */
+  --radius-sm: 1px;
+  --radius-md: 2px;
+  --radius-lg: 2px;
+  --radius-xl: 3px;
+  --radius-2xl: 3px;
+
+  --color-navy: #0a3d62;
+  --color-navy-dark: #072a45;
+  --color-navy-50: #eef3f8;
+  --color-saffron: #f58220;
+  --color-saffron-ink: #a4520b;
+  --color-saffron-50: #fff4e8;
+  --color-indiagreen: #138808;
+  --color-paper: #f4f5f2;
+  --color-rule: #d5dbe2;
+}
+
+:root {
+  --bg: #f4f5f2;
+  --text: #1a2027;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background: var(--bg);
+  color: var(--text);
+}
+
+h1,
+h2,
+h3,
+.font-serif {
+  font-family: var(--font-serif);
+  letter-spacing: -0.005em;
+}
+
+.tricolor-strip {
+  height: 4px;
+  width: 100%;
+  background: linear-gradient(to right, #ff9933 0%, #ff9933 33.33%, #ffffff 33.33%, #ffffff 66.66%, #138808 66.66%, #138808 100%);
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  background: #fff;
+  color: #0a3d62;
+  padding: 8px 16px;
+  font-weight: 600;
+}
+.skip-link:focus {
+  left: 8px;
+  top: 8px;
+}
+
+:focus-visible {
+  outline: 3px solid #f58220;
+  outline-offset: 2px;
+}
+
+/* Subtle engraved pattern used behind banners */
+.pattern-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+@keyframes ticker {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.ticker-track {
+  animation: ticker 40s linear infinite;
+}
+.ticker-paused .ticker-track {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ticker-track {
+    animation: none;
+  }
+}
+
+/* GIGW-style high contrast: black background, white text, yellow interactive elements */
+html.hc body,
+html.hc body * {
+  background-color: #000 !important;
+  background-image: none !important;
+  color: #fff !important;
+  border-color: #fff !important;
+  box-shadow: none !important;
+}
+html.hc body a,
+html.hc body button,
+html.hc body a *,
+html.hc body button * {
+  color: #ffeb3b !important;
+}
+html.hc body svg:not(.illustration)[stroke]:not([stroke='none']),
+html.hc body svg:not(.illustration) [stroke]:not([stroke='none']) {
+  stroke: #fff !important;
+}
+html.hc svg.illustration {
+  opacity: 0.15 !important;
+}
+
+@media print {
+  header,
+  footer,
+  nav,
+  .no-print {
+    display: none !important;
+  }
+}
