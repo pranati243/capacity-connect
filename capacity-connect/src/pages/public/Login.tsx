@@ -4,7 +4,7 @@ import { Eye, EyeOff, Lock, Info, KeyRound } from 'lucide-react'
 import { GovLayout } from '../../components/layout/GovLayout'
 import { PageBanner } from '../../components/gov/PageBanner'
 import { Captcha } from '../../components/gov/Captcha'
-import { TrainingScene } from '../../components/gov/Illustrations'
+import { PHOTOS } from '../../lib/photos'
 import { Card, CardHeader, Button, TextInput } from '../../components/ui'
 import { useAppData } from '../../context/AppDataContext'
 import { resetDemoData } from '../../context/storage'
@@ -102,7 +102,10 @@ export function Login() {
       <div className="max-w-6xl mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-5 gap-6">
         <div className="lg:col-span-2 space-y-5 order-2 lg:order-1">
           <div className="border border-rule bg-white p-2">
-            <TrainingScene tone="color" className="w-full h-auto aspect-[15/8]" title="Illustration of a training session" />
+            <figure>
+              <img src={PHOTOS.handsOn.src} alt={PHOTOS.handsOn.alt} loading="lazy" className="w-full h-auto aspect-[3/2] object-cover" />
+              <figcaption className="text-[0.7rem] text-slate-500 px-1 pt-1.5">Photo: {PHOTOS.handsOn.author}, {PHOTOS.handsOn.license}</figcaption>
+            </figure>
           </div>
           <Card>
             <CardHeader title="Important Instructions" />

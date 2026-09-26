@@ -1,11 +1,11 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Clock, Star, CheckCircle2, FileStack, ClipboardList } from 'lucide-react'
-import { Button, Badge, EmptyState, Medallion, Card } from '../../components/ui'
+import { Button, Badge, EmptyState, Card } from '../../components/ui'
 import { RefinePanel, RefineGroup } from '../../components/gov/RefinePanel'
+import { SubjectCover } from '../../components/gov/SubjectCover'
 import { useAppData } from '../../context/AppDataContext'
 import { SUBJECTS } from '../../data/mockData'
-import { subjectIcon } from '../../lib/subjects'
 import type { Course } from '../../types'
 
 const LEVELS: Course['level'][] = ['Beginner', 'Intermediate', 'Advanced']
@@ -59,10 +59,7 @@ export function Courses() {
             const enrolled = enrolledIds.has(c.id)
             return (
               <article key={c.id} className="bg-white border border-rule border-l-4 border-l-navy flex flex-col md:flex-row">
-                <div className="flex md:flex-col items-center gap-3 md:justify-center px-5 py-4 md:w-44 bg-navy-50 border-b md:border-b-0 md:border-r border-rule shrink-0">
-                  <Medallion icon={subjectIcon(c.subject)} size={52} />
-                  <p className="text-[0.7rem] font-bold uppercase tracking-wide text-slate-600 md:text-center leading-tight">{c.subject}</p>
-                </div>
+                <SubjectCover subject={c.subject} vertical medallionSize={48} className="h-28 md:h-auto md:w-44 shrink-0 border-b md:border-b-0 md:border-r border-rule" />
                 <div className="flex-1 p-5 min-w-0">
                   <div className="flex flex-wrap items-center gap-2">
                     <Badge>{c.level}</Badge>

@@ -7,6 +7,7 @@ import { RESOURCE_ICON, RESOURCE_LABEL } from '../../lib/resources'
 import { useAppData } from '../../context/AppDataContext'
 import { pct, PASS_PCT } from '../../lib/metrics'
 import { subjectIcon } from '../../lib/subjects'
+import { subjectPhoto } from '../../lib/photos'
 import type { Resource } from '../../types'
 
 const SECTIONS = [
@@ -30,6 +31,7 @@ export function CourseDetail() {
   const done = new Set(enrollment?.completedResources ?? [])
   const enrolledCount = enrollments.filter((e) => e.courseId === course.id).length
   const today = new Date().toISOString().slice(0, 10)
+  const photo = subjectPhoto(course.subject)
 
   return (
     <div className="space-y-5">
@@ -67,6 +69,14 @@ export function CourseDetail() {
         <div className="lg:col-span-3 space-y-6">
           <Card className="scroll-mt-4">
             <div id="overview" className="scroll-mt-4" />
+            {photo && (
+              <figure className="relative">
+                <img src={photo.src} alt={photo.alt} className="w-full h-44 md:h-56 object-cover" />
+                <figcaption className="absolute bottom-1.5 right-2 text-[0.65rem] text-white bg-black/45 px-1.5 py-0.5">
+                  Photo: {photo.author}, {photo.license}
+                </figcaption>
+              </figure>
+            )}
             <div className="p-6 flex flex-col md:flex-row gap-5">
               <Medallion icon={subjectIcon(course.subject)} size={64} />
               <div className="flex-1">

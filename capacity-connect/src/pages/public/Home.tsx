@@ -5,32 +5,32 @@ import {
   Trophy, FileText, GraduationCap, Users, Award, UserCog, ArrowRight,
 } from 'lucide-react'
 import { GovLayout } from '../../components/layout/GovLayout'
-import { TrainingScene, WeatherScene, AssessmentScene } from '../../components/gov/Illustrations'
+import { PHOTOS, type Photo } from '../../lib/photos'
+import { SubjectCover } from '../../components/gov/SubjectCover'
 import { Medallion, SectionTitle, Badge } from '../../components/ui'
 import { useAppData } from '../../context/AppDataContext'
 import { usePrefs } from '../../context/PrefsContext'
 import { PUBLISH_META } from '../../lib/publishMeta'
-import { subjectIcon } from '../../lib/subjects'
 import { isCertified } from '../../lib/metrics'
 import type { PublishedItem } from '../../types'
 
 const SLIDES = [
   {
-    Scene: TrainingScene,
+    photo: PHOTOS.lecture as Photo,
     kicker: 'Capacity Building',
     title: 'heroTitle' as const,
     body: 'heroBody' as const,
     cta: { label: 'Register Now', to: '/signup' },
   },
   {
-    Scene: WeatherScene,
+    photo: PHOTOS.radar as Photo,
     kicker: 'Learn from the field',
     titleText: 'Courses taught by the scientists who run the observation network',
     bodyText: 'Instruments, radar and satellite systems, forecasting models and climate data — mapped to verified trainer competencies.',
     cta: { label: 'Explore Courses', to: '/#courses' },
   },
   {
-    Scene: AssessmentScene,
+    photo: PHOTOS.handsOn as Photo,
     kicker: 'Assess & Certify',
     titleText: 'Subject-wise assessments and QR-verifiable certificates',
     bodyText: 'Every certificate issued on this portal can be verified by anyone, anytime, with its certificate ID.',
@@ -64,10 +64,19 @@ function HeroCarousel() {
             className={`absolute inset-0 transition-opacity duration-700 ${i === index ? 'opacity-100' : 'opacity-0'}`}
             aria-hidden={i !== index}
           >
-            <s.Scene tone="color" className="absolute inset-0 w-full h-full" />
+            <img
+              src={s.photo.src}
+              alt={s.photo.alt}
+              className="absolute inset-0 w-full h-full object-cover"
+              loading={i === 0 ? 'eager' : 'lazy'}
+              fetchPriority={i === 0 ? 'high' : 'auto'}
+            />
+            <p className="absolute top-2 right-3 text-[0.65rem] text-white/80 bg-black/35 px-1.5 py-0.5 z-10">
+              Photo: {s.photo.author}, {s.photo.license}
+            </p>
           </div>
         ))}
-        <div className="absolute inset-0 bg-gradient-to-r from-navy via-navy/85 md:via-navy/70 to-navy/10" />
+        <div className="absolute inset-0 bg-gradient-to-r from-navy via-navy/80 md:via-navy/60 to-navy/20" />
         <div className="relative h-full max-w-7xl mx-auto px-4 flex items-center">
           <div className="max-w-xl text-white" aria-live={paused ? 'polite' : 'off'}>
             <p className="inline-block text-[0.7rem] font-bold uppercase tracking-[0.2em] text-[#2b1600] bg-saffron px-2 py-1">{slide.kicker}</p>
@@ -225,7 +234,12 @@ export function Home() {
         <SectionTitle>{t('navAbout')}</SectionTitle>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
           <div className="border border-rule bg-white p-2">
-            <TrainingScene tone="color" className="w-full h-auto aspect-[15/8]" title="Illustration of a training session" />
+            <figure>
+              <img src={PHOTOS.participants.src} alt={PHOTOS.participants.alt} loading="lazy" className="w-full h-auto aspect-[3/2] object-cover" />
+              <figcaption className="text-[0.7rem] text-slate-500 px-1 pt-1.5">
+                Capacity building workshop in progress. Photo: {PHOTOS.participants.author}, {PHOTOS.participants.license}
+              </figcaption>
+            </figure>
           </div>
           <div>
             <p className="text-slate-700 leading-relaxed">
@@ -259,10 +273,7 @@ export function Home() {
             const enrolled = enrollments.filter((e) => e.courseId === c.id).length
             return (
               <article key={c.id} className="bg-white border border-rule flex flex-col hover:border-navy transition-colors">
-                <div className="flex items-center gap-3 px-4 py-3 bg-navy-50 border-b border-rule">
-                  <Medallion icon={subjectIcon(c.subject)} size={34} />
-                  <p className="text-[0.7rem] font-bold uppercase tracking-wide text-slate-600 leading-tight">{c.subject}</p>
-                </div>
+                <SubjectCover subject={c.subject} className="h-32 border-b border-rule" />
                 <div className="p-4 flex-1 flex flex-col">
                   <h3 className="font-serif font-semibold text-navy leading-snug">{c.title}</h3>
                   <p className="text-xs text-slate-600 mt-2 flex-1 leading-relaxed">{c.description}</p>

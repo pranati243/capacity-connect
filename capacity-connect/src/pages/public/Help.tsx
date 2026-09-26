@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom'
 import { GovLayout } from '../../components/layout/GovLayout'
 import { PageBanner } from '../../components/gov/PageBanner'
 import { Card, CardHeader } from '../../components/ui'
+import { PHOTOS, type Photo } from '../../lib/photos'
 
 const SECTIONS = [
   {
@@ -23,7 +24,7 @@ const SECTIONS = [
   {
     id: 'accessibility',
     title: 'Accessibility Statement',
-    body: 'Text can be resized with A- / A / A+, a high-contrast mode is available from the header, all functions work with a keyboard, images carry text alternatives, and moving content (the news ticker and slideshow) can be paused.',
+    body: 'Text can be resized with A- / A / A+, a dark mode is available from the header, all functions work with a keyboard, images carry text alternatives, and moving content (the news ticker and slideshow) can be paused.',
   },
   {
     id: 'privacy',
@@ -39,6 +40,11 @@ const SECTIONS = [
     id: 'hyperlinking',
     title: 'Hyperlinking Policy',
     body: 'Prior permission is not required to link to this portal, but the portal must not be loaded into frames on other sites. Links to external sites are provided for convenience only.',
+  },
+  {
+    id: 'credits',
+    title: 'Image Credits',
+    body: 'Photographs are from Wikimedia Commons, resized and converted to WebP. Adapted images are shared under the same licence as the original.',
   },
 ] as const
 
@@ -77,6 +83,26 @@ export function Help() {
                   </dl>
                 ) : (
                   <p>{s.body}</p>
+                )}
+                {s.id === 'credits' && (
+                  <ul className="mt-4 divide-y divide-rule border-t border-rule">
+                    {Object.values(PHOTOS).map((ph: Photo) => (
+                      <li key={ph.src} className="flex gap-3 py-3">
+                        <img src={ph.src} alt="" loading="lazy" className="w-20 h-14 object-cover shrink-0 border border-rule" />
+                        <div className="min-w-0 text-xs">
+                          <a href={ph.sourceUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-navy underline break-words">{ph.title}</a>
+                          <p className="text-slate-600 mt-0.5">
+                            {ph.author} ·{' '}
+                            {ph.licenseUrl ? (
+                              <a href={ph.licenseUrl} target="_blank" rel="noopener noreferrer" className="underline">{ph.license}</a>
+                            ) : (
+                              ph.license
+                            )}
+                          </p>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
                 )}
               </div>
             </Card>

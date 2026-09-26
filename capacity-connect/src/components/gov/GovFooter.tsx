@@ -38,6 +38,7 @@ export function GovFooter() {
             <li><Link to="/help#terms" className={link}>Terms of Use</Link></li>
             <li><Link to="/help#hyperlinking" className={link}>Hyperlinking Policy</Link></li>
             <li><Link to="/help#faq" className={link}>Help &amp; FAQs</Link></li>
+            <li><Link to="/help#credits" className={link}>Image Credits</Link></li>
           </ul>
         </div>
         <div>

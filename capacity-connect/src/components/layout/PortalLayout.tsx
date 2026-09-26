@@ -6,6 +6,7 @@ import { PORTAL_NAV, ROLE_LABEL } from '../gov/nav'
 import { useAppData } from '../../context/AppDataContext'
 import { usePrefs } from '../../context/PrefsContext'
 import type { Role } from '../../types'
+import { PHOTOS } from '../../lib/photos'
 
 export function PortalLayout({ role }: { role: Role }) {
   const { currentUser } = useAppData()
@@ -29,6 +30,7 @@ export function PortalLayout({ role }: { role: Role }) {
       {isDashboard ? (
         <PageBanner
           large
+          photo={PHOTOS.lecture}
           scene="training"
           title={`${greeting}, ${currentUser.name}`}
           subtitle={[currentUser.department, currentUser.employeeId && `Employee ID ${currentUser.employeeId}`].filter(Boolean).join(' · ') || undefined}

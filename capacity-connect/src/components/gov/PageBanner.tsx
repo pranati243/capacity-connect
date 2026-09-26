@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { ChevronRight } from 'lucide-react'
 import { TrainingScene, WeatherScene, LibraryScene, AssessmentScene } from './Illustrations'
 import type { SceneName } from './nav'
+import type { Photo } from '../../lib/photos'
 
 const SCENES = { training: TrainingScene, weather: WeatherScene, library: LibraryScene, assessment: AssessmentScene }
 
@@ -17,6 +18,7 @@ export function PageBanner({
   crumbs,
   scene = 'training',
   large = false,
+  photo,
   children,
 }: {
   title: string
@@ -24,17 +26,27 @@ export function PageBanner({
   crumbs: Crumb[]
   scene?: SceneName
   large?: boolean
+  photo?: Photo
   children?: ReactNode
 }) {
   const Scene = SCENES[scene]
   return (
     <div className="relative overflow-hidden bg-navy text-white pattern-grid">
-      <div
-        className={`absolute inset-y-0 right-0 w-full text-white pointer-events-none ${large ? 'md:w-2/3 opacity-[0.24]' : 'md:w-3/5 opacity-[0.13]'}`}
-        aria-hidden="true"
-      >
-        <Scene tone="mono" className="w-full h-full" />
-      </div>
+      {photo ? (
+        <img
+          src={photo.src}
+          alt=""
+          aria-hidden="true"
+          className="absolute inset-y-0 right-0 w-full md:w-2/3 h-full object-cover opacity-40 mix-blend-luminosity pointer-events-none"
+        />
+      ) : (
+        <div
+          className={`absolute inset-y-0 right-0 w-full text-white pointer-events-none ${large ? 'md:w-2/3 opacity-[0.24]' : 'md:w-3/5 opacity-[0.13]'}`}
+          aria-hidden="true"
+        >
+          <Scene tone="mono" className="w-full h-full" />
+        </div>
+      )}
       <div
         className={`absolute inset-y-0 right-0 w-full pointer-events-none bg-gradient-to-r ${large ? 'md:w-2/3 from-navy via-navy/25 to-transparent' : 'md:w-3/5 from-navy via-navy/70 to-transparent'}`}
         aria-hidden="true"
